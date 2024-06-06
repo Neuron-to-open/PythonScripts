@@ -9,31 +9,38 @@
 # * @Copyright (C) Yijiayi All Rights reserved
 # *****************************************************************************/
 from PIL import Image
-import os
 
 
-def png_to_ico(png_path, ico_path=None, sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]):
+# Define a function to convert JPG format images to ICO format
+def convert_jpg_to_ico(input_path, output_path):
     """
-    Convert a PNG image to an ICO file with multiple sizes.
+    Convert a JPG image to ICO format.
 
-    :param png_path: Path to the input PNG file.
-    :param ico_path: Path to the output ICO file. If None, it will be saved in the same directory as the PNG file with the same name.
-    :param sizes: List of sizes for the ICO file.
+    Parameters:
+    input_path (str): The path of the input JPG image file.
+    output_path (str): The path to save the converted ICO image file.
+
+    Returns:
+    None
     """
-    # Open the PNG file
-    img = Image.open(png_path)
+    try:
+        # Use the Image library to open the JPG image file
+        # Open the JPG image
+        with Image.open(input_path) as img:
+            # Save the image as ICO format
+            # Save as ICO
+            img.save(output_path, format='ICO')
+        # Print the conversion success message
+        print(f"Successfully converted {input_path} to {output_path}")
+    except Exception as e:
+        # Print the error message if an exception occurs during conversion
+        print(f"An error occurred: {e}")
 
-    # Ensure the image has an alpha channel
-    img = img.convert("RGBA")
 
-    # Save the image as an ICO file
-    if ico_path is None:
-        ico_path = os.path.splitext(png_path)[0] + '.ico'
+# Example usage
+# Define the path of the input JPG image and the path to save the output ICO image
+input_jpg = "E:\\pictures\\动漫游戏与影视\\原神\\kkld.jpg"
+output_ico = 'output_icon.ico'
 
-    img.save(ico_path, format='ICO', sizes=sizes)
-
-
-# Example usage:
-png_path = 'example.png'  # Replace with your PNG file path
-ico_path = 'example.ico'  # Replace with your desired ICO file path
-png_to_ico(png_path, ico_path)
+# Call the function to perform the conversion
+convert_jpg_to_ico(input_jpg, output_ico)
